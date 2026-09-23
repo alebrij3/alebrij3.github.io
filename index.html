@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logística Rhino — Transporte, carga y última milla en México</title>
+    <meta
+      name="description"
+      content="Logística Rhino mueve tu carga por todo México: transporte terrestre, manejo de carga y entregas de última milla, con seguimiento de principio a fin."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============================
+     ⚠ DATOS DE MARCADOR DE POSICIÓN
+     Busca "PLACEHOLDER" en este archivo para encontrar todo
+     lo que debes reemplazar con información real: teléfono,
+     correo, dirección, cifras de la empresa y el logotipo.
+     ============================ */
+
+      :root {
+        --ink: #323232;
+        --ink-2: #3d3d3d;
+        --paper: #f1f1ef;
+        --paper-2: #e6e5e2;
+        --amber: #e9190f;
+        --amber-dk: #c11209;
+        --rust: #a81208;
+        --slate: #6e6e6e;
+        --line: #d6d5d3;
+        --line-dk: #4a4a4a;
+        --white: #ffffff;
+
+        --font-display: 'Oswald', sans-serif;
+        --font-body: 'Inter', sans-serif;
+
+        --wrap: 1120px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--font-body);
+        color: var(--ink);
+        background: var(--paper);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-display);
+        font-weight: 600;
+        line-height: 1.08;
+        margin: 0;
+        letter-spacing: 0.2px;
+      }
+
+      p {
+        margin: 0 0 1rem;
+        color: var(--slate);
+      }
+      a {
+        color: inherit;
+      }
+
+      .wrap {
+        max-width: var(--wrap);
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      .skip-link {
+        position: absolute;
+        left: -999px;
+        top: auto;
+        background: var(--amber);
+        color: var(--ink);
+        padding: 12px 18px;
+        z-index: 200;
+        font-weight: 600;
+      }
+      .skip-link:focus {
+        left: 16px;
+        top: 16px;
+      }
+
+      :focus-visible {
+        outline: 3px solid var(--rust);
+        outline-offset: 3px;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      /* ---------- Header ---------- */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(50, 50, 50, 0.96);
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid var(--line-dk);
+      }
+      .nav-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 76px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: var(--paper);
+      }
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 auto;
+      }
+      .brand-name {
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+
+      nav.primary-nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .primary-nav a {
+        text-decoration: none;
+        color: var(--paper);
+        font-size: 0.95rem;
+        font-weight: 500;
+        padding: 10px 14px;
+        border-radius: 2px;
+      }
+      .primary-nav a:hover {
+        color: var(--amber);
+      }
+
+      .nav-cta {
+        background: var(--amber);
+        color: var(--ink) !important;
+        font-weight: 600 !important;
+        padding: 10px 18px !important;
+        margin-left: 6px;
+      }
+      .nav-cta:hover {
+        background: var(--amber-dk);
+        color: var(--ink) !important;
+      }
+
+      .nav-toggle {
+        display: none;
+      }
+      .nav-toggle-label {
+        display: none;
+        cursor: pointer;
+        padding: 8px;
+        background: none;
+        border: none;
+        color: var(--paper);
+      }
+
+      @media (max-width: 820px) {
+        .primary-nav {
+          position: absolute;
+          top: 76px;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          align-items: stretch;
+          background: var(--ink);
+          border-bottom: 1px solid var(--line-dk);
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.25s ease;
+        }
+        .primary-nav a {
+          padding: 16px 24px;
+          border-top: 1px solid var(--line-dk);
+        }
+        .nav-cta {
+          margin: 12px 24px;
+          text-align: center;
+        }
+        .nav-toggle-label {
+          display: block;
+        }
+        .nav-toggle:checked ~ .primary-nav {
+          max-height: 420px;
+        }
+      }
+
+      /* ---------- Hero ---------- */
+      .hero {
+        background: var(--ink);
+        color: var(--paper);
+        padding: 90px 0 70px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 48px;
+        align-items: center;
+      }
+      .hero h1 {
+        font-size: clamp(2.4rem, 4.6vw, 3.9rem);
+        color: var(--paper);
+        max-width: 14ch;
+      }
+      .hero h1 .accent {
+        color: var(--amber);
+      }
+      .hero-lede {
+        color: #c7c7c5;
+        font-size: 1.1rem;
+        max-width: 46ch;
+        margin-top: 20px;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 14px;
+        margin-top: 28px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-block;
+        text-decoration: none;
+        padding: 14px 26px;
+        font-weight: 600;
+        font-size: 0.98rem;
+        border-radius: 2px;
+        border: 1px solid transparent;
+        cursor: pointer;
+      }
+      .btn-primary {
+        background: var(--amber);
+        color: var(--ink);
+      }
+      .btn-primary:hover {
+        background: var(--amber-dk);
+      }
+      .btn-ghost {
+        border-color: #545454;
+        color: var(--paper);
+        background: transparent;
+      }
+      .btn-ghost:hover {
+        border-color: var(--amber);
+        color: var(--amber);
+      }
+
+      /* route graphic */
+      .route-art {
+        position: relative;
+        height: 260px;
+      }
+      .route-art svg {
+        width: 100%;
+        height: 100%;
+      }
+      .route-path {
+        stroke-dasharray: 8 10;
+        stroke: #545454;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .route-dot {
+          animation: travel 5s linear infinite;
+          offset-path: path('M10,150 C 120,20 260,260 420,60');
+        }
+        @keyframes travel {
+          from {
+            offset-distance: 0%;
+          }
+          to {
+            offset-distance: 100%;
+          }
+        }
+      }
+
+      .stats-strip {
+        border-top: 1px solid var(--line-dk);
+        margin-top: 64px;
+        padding-top: 32px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      .stat b {
+        display: block;
+        font-family: var(--font-display);
+        font-size: 2.1rem;
+        color: var(--amber);
+        font-weight: 600;
+      }
+      .stat span {
+        color: #b5b5b3;
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 820px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+        .route-art {
+          height: 180px;
+          order: -1;
+        }
+        .stats-strip {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+      }
+
+      /* ---------- Image placeholders ---------- */
+      .img-ph {
+        position: relative;
+        border: 1px dashed var(--line);
+        border-radius: 2px;
+        background-image: repeating-linear-gradient(
+          135deg,
+          var(--paper-2) 0 10px,
+          var(--paper) 10px 20px
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .img-ph-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 16px;
+        text-align: center;
+        color: var(--slate);
+      }
+      .img-ph-inner svg {
+        width: 40px;
+        height: 30px;
+      }
+      .img-ph-label {
+        font-size: 0.82rem;
+        font-weight: 600;
+      }
+      .img-ph-meta {
+        font-size: 0.72rem;
+        opacity: 0.75;
+      }
+
+      .img-ph--dark {
+        border-color: var(--line-dk);
+        background-image: repeating-linear-gradient(
+          135deg,
+          var(--ink-2) 0 10px,
+          var(--ink) 10px 20px
+        );
+      }
+      .img-ph--dark .img-ph-inner {
+        color: #9a9a98;
+      }
+      .img-ph--dark .img-ph-label {
+        color: #c7c7c5;
+      }
+
+      .ar-banner {
+        aspect-ratio: 21/6;
+        margin-top: 56px;
+      }
+      .ar-square {
+        aspect-ratio: 4/3;
+      }
+      .ar-wide {
+        aspect-ratio: 16/10;
+        margin-top: 28px;
+      }
+      .ar-map {
+        aspect-ratio: 16/9;
+        margin-top: 24px;
+      }
+
+      @media (max-width: 820px) {
+        .ar-banner {
+          aspect-ratio: 4/3;
+        }
+      }
+
+      /* ---------- Section shell ---------- */
+      section {
+        padding: 88px 0;
+      }
+      .section-head {
+        max-width: 60ch;
+        margin-bottom: 52px;
+      }
+      .section-head h2 {
+        font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+      }
+      .section-head p {
+        margin-top: 14px;
+        font-size: 1.05rem;
+      }
+
+      .alt {
+        background: var(--paper-2);
+      }
+
+      /* ---------- Proceso / Servicios (route timeline) ---------- */
+      .route-line {
+        position: relative;
+      }
+      .route-line::before {
+        content: '';
+        position: absolute;
+        left: 27px;
+        top: 12px;
+        bottom: 12px;
+        width: 2px;
+        background-repeat: repeat-y;
+        background-image: linear-gradient(
+          var(--slate) 60%,
+          rgba(0, 0, 0, 0) 0%
+        );
+        background-size: 2px 14px;
+      }
+      .stop {
+        position: relative;
+        padding: 0 0 56px 76px;
+      }
+      .stop:last-child {
+        padding-bottom: 0;
+      }
+      .stop-num {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: var(--amber);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-size: 1.15rem;
+        font-weight: 600;
+        border: 3px solid var(--paper);
+        box-shadow: 0 0 0 2px var(--slate);
+      }
+      .stop h3 {
+        font-size: 1.45rem;
+        margin-bottom: 8px;
+      }
+      .stop p {
+        max-width: 60ch;
+      }
+      .stop-tag {
+        display: inline-block;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--rust);
+        margin-bottom: 6px;
+      }
+      .stop-row {
+        display: flex;
+        gap: 28px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+      .stop-content {
+        flex: 1 1 380px;
+        min-width: 0;
+      }
+      .stop-media {
+        flex: 0 0 200px;
+        width: 200px;
+      }
+      @media (max-width: 700px) {
+        .stop-media {
+          width: 100%;
+          flex-basis: 100%;
+        }
+      }
+
+      /* ---------- Nosotros ---------- */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 56px;
+        align-items: start;
+      }
+      .reason-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .reason-list li {
+        display: flex;
+        gap: 18px;
+        padding: 20px 0;
+        border-top: 1px solid var(--line);
+      }
+      .reason-list li:last-child {
+        border-bottom: 1px solid var(--line);
+      }
+      .reason-icon {
+        flex: 0 0 auto;
+        width: 28px;
+        height: 28px;
+        color: var(--rust);
+        margin-top: 2px;
+      }
+      .reason-text h3 {
+        font-size: 1.05rem;
+        font-family: var(--font-body);
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .reason-text p {
+        margin: 0;
+        font-size: 0.96rem;
+      }
+
+      .about-copy h2 {
+        margin-bottom: 18px;
+      }
+
+      @media (max-width: 820px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ---------- FAQ ---------- */
+      .faq-list {
+        max-width: 780px;
+      }
+      .faq-item {
+        border-bottom: 1px solid var(--line);
+      }
+      .faq-item:first-child {
+        border-top: 1px solid var(--line);
+      }
+      .faq-q {
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 22px 4px;
+        cursor: pointer;
+        color: var(--ink);
+      }
+      .faq-q h3 {
+        font-size: 1.05rem;
+        font-family: var(--font-body);
+        font-weight: 600;
+      }
+      .faq-icon {
+        flex: 0 0 auto;
+        width: 20px;
+        height: 20px;
+        position: relative;
+      }
+      .faq-icon::before,
+      .faq-icon::after {
+        content: '';
+        position: absolute;
+        background: var(--rust);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .faq-icon::before {
+        width: 14px;
+        height: 2px;
+      }
+      .faq-icon::after {
+        width: 2px;
+        height: 14px;
+        transition: transform 0.2s ease;
+      }
+      .faq-item[open] .faq-icon::after {
+        transform: translate(-50%, -50%) rotate(90deg) scale(0);
+      }
+
+      .faq-a {
+        padding: 0 4px 24px;
+        max-width: 68ch;
+      }
+      .faq-a p {
+        margin: 0;
+      }
+
+      /* ---------- Contacto ---------- */
+      .contact-shell {
+        background: var(--ink);
+        color: var(--paper);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .contact-info {
+        padding: 56px 48px;
+      }
+      .contact-info h2 {
+        color: var(--paper);
+        margin-bottom: 14px;
+      }
+      .contact-info p {
+        color: #c7c7c5;
+      }
+      .contact-list {
+        list-style: none;
+        margin: 28px 0 0;
+        padding: 0;
+      }
+      .contact-list li {
+        padding: 14px 0;
+        border-top: 1px solid var(--line-dk);
+      }
+      .contact-list li:last-child {
+        border-bottom: 1px solid var(--line-dk);
+      }
+      .contact-list span {
+        display: block;
+        font-size: 0.82rem;
+        color: var(--amber);
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+      .contact-list a,
+      .contact-list div.value {
+        color: var(--paper);
+        text-decoration: none;
+        font-size: 1.02rem;
+      }
+      .contact-list a:hover {
+        color: var(--amber);
+      }
+
+      .contact-form {
+        padding: 56px 48px;
+        background: var(--ink-2);
+      }
+      .field {
+        margin-bottom: 18px;
+      }
+      .field label {
+        display: block;
+        font-size: 0.88rem;
+        margin-bottom: 6px;
+        color: #c7c7c5;
+      }
+      .field input,
+      .field textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 2px;
+        border: 1px solid #545454;
+        background: var(--ink);
+        color: var(--paper);
+        font-family: var(--font-body);
+        font-size: 0.98rem;
+      }
+      .field textarea {
+        min-height: 110px;
+        resize: vertical;
+      }
+      .field input:focus,
+      .field textarea:focus {
+        border-color: var(--amber);
+      }
+      .form-note {
+        font-size: 0.82rem;
+        color: #8c8c8a;
+        margin-top: 14px;
+      }
+
+      @media (max-width: 820px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .contact-info,
+        .contact-form {
+          padding: 40px 28px;
+        }
+      }
+
+      /* ---------- Footer ---------- */
+      footer {
+        background: var(--ink);
+        color: #8c8c8a;
+        padding: 36px 0;
+      }
+      .footer-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        border-top: 1px solid var(--line-dk);
+        padding-top: 28px;
+      }
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--paper);
+      }
+      .footer-brand svg {
+        width: 24px;
+        height: 24px;
+      }
+      footer nav {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+      footer nav a {
+        color: #8c8c8a;
+        text-decoration: none;
+        font-size: 0.92rem;
+      }
+      footer nav a:hover {
+        color: var(--amber);
+      }
+      .footer-fine {
+        font-size: 0.82rem;
+        margin-top: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header>
+      <div class="wrap nav-row">
+        <a class="brand" href="#inicio">
+          <svg
+            class="brand-mark"
+            viewBox="0 0 40 40"
+            fill="none"
+            aria-hidden="true"
+          >
+            <polygon
+              points="2,30 10,16 15,18 20,10 27,14 25,20 34,17 30,26 20,30 12,34"
+              fill="none"
+              stroke="#E9190F"
+              stroke-width="1.6"
+              stroke-linejoin="round"
+            />
+            <line
+              x1="15"
+              y1="18"
+              x2="20"
+              y2="10"
+              stroke="#E9190F"
+              stroke-width="1.6"
+            />
+          </svg>
+          <span class="brand-name">Logística Rhino</span>
+        </a>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <label
+          for="nav-toggle"
+          class="nav-toggle-label"
+          aria-label="Abrir menú"
+        >
+          <svg
+            width="26"
+            height="26"
+            viewBox="0 0 26 26"
+            fill="none"
+            aria-hidden="true"
+          >
+            <line
+              x1="3"
+              y1="7"
+              x2="23"
+              y2="7"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+            <line
+              x1="3"
+              y1="13"
+              x2="23"
+              y2="13"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+            <line
+              x1="3"
+              y1="19"
+              x2="23"
+              y2="19"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+          </svg>
+        </label>
+
+        <nav class="primary-nav" aria-label="Navegación principal">
+          <a href="#servicios">Servicios</a>
+          <a href="#nosotros">Nosotros</a>
+          <a href="#faq">Preguntas frecuentes</a>
+          <a href="#contacto">Contacto</a>
+          <a class="nav-cta" href="#contacto">Solicita una cotización</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <!-- ============ HERO ============ -->
+      <section class="hero" id="inicio">
+        <div class="wrap">
+          <div class="hero-grid">
+            <div>
+              <h1>Logística Rhino</h1>
+              <p class="hero-lede">
+                Movemos mercancía por todo México: recolección, transporte
+                terrestre y entrega de última milla, con seguimiento claro en
+                cada tramo del camino.
+              </p>
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="#contacto"
+                  >Solicita una cotización</a
+                >
+                <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+              </div>
+            </div>
+
+            <div class="route-art" aria-hidden="true">
+              <svg viewBox="0 0 440 260" fill="none">
+                <path
+                  class="route-path"
+                  d="M10,150 C 120,20 260,260 420,60"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <circle cx="10" cy="150" r="7" fill="#E9190F" />
+                <circle cx="420" cy="60" r="7" fill="#E9190F" />
+                <circle
+                  class="route-dot"
+                  cx="10"
+                  cy="150"
+                  r="5"
+                  fill="#F1F1EF"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <!-- ⚠ PLACEHOLDER: reemplaza por una foto real de la flota o una operación de carga -->
+          <div class="img-ph img-ph--dark ar-banner">
+            <div class="img-ph-inner">
+              <svg viewBox="0 0 48 36" fill="none" aria-hidden="true">
+                <rect
+                  x="1"
+                  y="1"
+                  width="46"
+                  height="34"
+                  rx="2"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                />
+                <circle
+                  cx="14"
+                  cy="12"
+                  r="4"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                />
+                <path
+                  d="M4 28l12-10 8 7 6-6 14 12"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <span class="img-ph-label">Foto: flota Rhino en carretera</span>
+              <span class="img-ph-meta"
+                >Imagen de marcador de posición — 1600×500</span
+              >
+            </div>
+          </div>
+
+          <!-- ⚠ PLACEHOLDER: cifras de ejemplo, reemplaza con datos reales de la empresa -->
+          <div class="stats-strip">
+            <div class="stat">
+              <b>+10 años</b
+              ><span>moviendo carga en México (dato de ejemplo)</span>
+            </div>
+            <div class="stat">
+              <b>32 estados</b
+              ><span>con cobertura de entrega (dato de ejemplo)</span>
+            </div>
+            <div class="stat">
+              <b>98%</b><span>de entregas a tiempo (dato de ejemplo)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SERVICIOS (línea de ruta) ============ -->
+      <section id="servicios">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>Así movemos tu mercancía</h2>
+            <p>
+              Del punto de origen hasta la puerta de tu cliente, tu envío pasa
+              por tres etapas. En cada una nos hacemos responsables de que
+              llegue completa y a tiempo.
+            </p>
+          </div>
+
+          <div class="route-line">
+            <div class="stop">
+              <div class="stop-num">01</div>
+              <div class="stop-row">
+                <div class="stop-content">
+                  <span class="stop-tag">Carga</span>
+                  <h3>Recolección y manejo de carga</h3>
+                  <p>
+                    Recogemos tu mercancía en el punto de origen, la revisamos,
+                    empacamos y consolidamos para el transporte. Trabajamos con
+                    carga completa y carga consolidada, según el volumen que
+                    necesites mover.
+                  </p>
+                </div>
+                <div class="img-ph ar-square stop-media">
+                  <div class="img-ph-inner">
+                    <svg viewBox="0 0 48 36" fill="none" aria-hidden="true">
+                      <rect
+                        x="1"
+                        y="1"
+                        width="46"
+                        height="34"
+                        rx="2"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                      />
+                      <circle
+                        cx="14"
+                        cy="12"
+                        r="4"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                      />
+                      <path
+                        d="M4 28l12-10 8 7 6-6 14 12"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                    <span class="img-ph-label">Foto: recolección de carga</span>
+                    <span class="img-ph-meta"
+                      >Imagen de marcador de posición</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="stop">
+              <div class="stop-num">02</div>
+              <div class="stop-row">
+                <div class="stop-content">
+                  <span class="stop-tag">Transporte</span>
+                  <h3>Transporte terrestre entre ciudades</h3>
+                  <p>
+                    Trasladamos tu carga entre ciudades y estados con rutas
+                    planeadas y unidades adecuadas al tipo de mercancía,
+                    cuidando tiempos de tránsito y condiciones de manejo.
+                  </p>
+                </div>
+                <div class="img-ph ar-square stop-media">
+                  <div class="img-ph-inner">
+                    <svg viewBox="0 0 48 36" fill="none" aria-hidden="true">
+                      <rect
+                        x="1"
+                        y="1"
+                        width="46"
+                        height="34"
+                        rx="2"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                      />
+                      <circle
+                        cx="14"
+                        cy="12"
+                        r="4"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                      />
+                      <path
+                        d="M4 28l12-10 8 7 6-6 14 12"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                    <span class="img-ph-label">Foto: unidad en carretera</span>
+                    <span class="img-ph-meta"
+                      >Imagen de marcador de posición</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="stop">
+              <div class="stop-num">03</div>
+              <div class="stop-row">
+                <div class="stop-content">
+                  <span class="stop-tag">Última milla</span>
+                  <h3>Entrega final a domicilio o negocio</h3>
+                  <p>
+                    Cerramos el ciclo con la entrega directa al destinatario, ya
+                    sea un domicilio o un negocio, confirmando la recepción y
+                    dejando constancia de la entrega.
+                  </p>
+                </div>
+                <div class="img-ph ar-square stop-media">
+                  <div class="img-ph-inner">
+                    <svg viewBox="0 0 48 36" fill="none" aria-hidden="true">
+                      <rect
+                        x="1"
+                        y="1"
+                        width="46"
+                        height="34"
+                        rx="2"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                      />
+                      <circle
+                        cx="14"
+                        cy="12"
+                        r="4"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                      />
+                      <path
+                        d="M4 28l12-10 8 7 6-6 14 12"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                    <span class="img-ph-label">Foto: entrega a domicilio</span>
+                    <span class="img-ph-meta"
+                      >Imagen de marcador de posición</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ NOSOTROS ============ -->
+      <section class="alt" id="nosotros">
+        <div class="wrap about-grid">
+          <div class="about-copy">
+            <h2>Logística pensada para México</h2>
+            <p>
+              Logística Rhino nace para resolver un problema simple: mover carga
+              de un punto a otro sin sorpresas. Coordinamos cada envío de
+              principio a fin y mantenemos comunicación directa contigo mientras
+              tu mercancía está en camino.
+            </p>
+            <p>
+              Ya sea un envío único o una operación recurrente, adaptamos el
+              servicio al volumen y al tipo de carga que manejas.
+            </p>
+
+            <!-- ⚠ PLACEHOLDER: reemplaza por una foto del equipo, almacén o unidades -->
+            <div class="img-ph ar-wide">
+              <div class="img-ph-inner">
+                <svg viewBox="0 0 48 36" fill="none" aria-hidden="true">
+                  <rect
+                    x="1"
+                    y="1"
+                    width="46"
+                    height="34"
+                    rx="2"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                  />
+                  <circle
+                    cx="14"
+                    cy="12"
+                    r="4"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                  />
+                  <path
+                    d="M4 28l12-10 8 7 6-6 14 12"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <span class="img-ph-label">Foto: equipo o almacén Rhino</span>
+                <span class="img-ph-meta"
+                  >Imagen de marcador de posición — 1200×750</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <ul class="reason-list">
+            <li>
+              <svg
+                class="reason-icon"
+                viewBox="0 0 28 28"
+                fill="none"
+                aria-hidden="true"
+              >
+                <rect
+                  x="4"
+                  y="4"
+                  width="20"
+                  height="20"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                />
+                <path
+                  d="M4 14h20M14 4v20"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                />
+              </svg>
+              <div class="reason-text">
+                <h3>Cobertura nacional</h3>
+                <p>
+                  Atendemos envíos dentro de México, entre ciudades y hacia
+                  destinos de última milla.
+                </p>
+              </div>
+            </li>
+            <li>
+              <svg
+                class="reason-icon"
+                viewBox="0 0 28 28"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M4 20V10l10-6 10 6v10"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linejoin="round"
+                />
+                <path d="M4 20h20" stroke="currentColor" stroke-width="1.6" />
+              </svg>
+              <div class="reason-text">
+                <h3>Flota propia</h3>
+                <p>
+                  Unidades destinadas al transporte de carga, con mantenimiento
+                  y revisión constantes.
+                </p>
+              </div>
+            </li>
+            <li>
+              <svg
+                class="reason-icon"
+                viewBox="0 0 28 28"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="14"
+                  cy="14"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                />
+                <path
+                  d="M14 8v6l4 3"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <div class="reason-text">
+                <h3>Seguimiento del envío</h3>
+                <p>
+                  Te mantenemos informado del avance de tu carga en cada etapa
+                  del recorrido.
+                </p>
+              </div>
+            </li>
+            <li>
+              <svg
+                class="reason-icon"
+                viewBox="0 0 28 28"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M6 22c0-6 4-9 8-9s8 3 8 9"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                />
+                <circle
+                  cx="14"
+                  cy="8"
+                  r="4"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                />
+              </svg>
+              <div class="reason-text">
+                <h3>Atención directa</h3>
+                <p>
+                  Un mismo equipo coordina tu envío de inicio a fin, sin
+                  intermediarios.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ FAQ ============ -->
+      <section id="faq">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>Preguntas frecuentes</h2>
+            <p>
+              Lo que más nos preguntan antes de enviar su primera carga con
+              nosotros.
+            </p>
+          </div>
+
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary class="faq-q">
+                <h3>¿Cuánto tiempo tarda un envío?</h3>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  El tiempo de tránsito depende del origen, el destino y el tipo
+                  de carga. Al solicitar tu cotización te damos un estimado
+                  claro antes de confirmar el envío.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-q">
+                <h3>¿A qué zonas de México hacen entregas?</h3>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Cubrimos envíos entre ciudades y estados dentro de México,
+                  incluyendo entrega de última milla en zonas urbanas y
+                  suburbanas.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-q">
+                <h3>¿Cómo solicito una cotización?</h3>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Escríbenos por el formulario de contacto, correo o WhatsApp
+                  con el origen, destino y tipo de carga, y te respondemos con
+                  el costo y tiempo estimados.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-q">
+                <h3>¿Puedo dar seguimiento a mi envío?</h3>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Sí. Te mantenemos informado sobre el estado de tu carga
+                  durante el transporte y confirmamos la entrega al llegar a su
+                  destino final.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-q">
+                <h3>¿Qué tipo de carga transportan?</h3>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Manejamos carga general, completa y consolidada. Si tu
+                  mercancía requiere condiciones especiales de manejo, cuéntanos
+                  al cotizar para confirmar que podemos atenderla.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-q">
+                <h3>¿Qué métodos de pago aceptan?</h3>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-a">
+                <p>
+                  Aceptamos transferencia bancaria y otros métodos según el tipo
+                  de cliente y la frecuencia de envío. Te confirmamos las
+                  opciones disponibles al cotizar.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONTACTO ============ -->
+      <section id="contacto">
+        <div class="wrap">
+          <div class="contact-shell">
+            <div class="contact-grid">
+              <div class="contact-info">
+                <h2>Cotiza tu envío</h2>
+                <p>
+                  Cuéntanos qué necesitas mover y te respondemos con una
+                  cotización clara.
+                </p>
+
+                <!-- ⚠ PLACEHOLDER: reemplaza teléfono, correo, WhatsApp y dirección -->
+                <ul class="contact-list">
+                  <li>
+                    <span>Teléfono</span>
+                    <a href="tel:+525500000000">(55) 0000 0000</a>
+                  </li>
+                  <li>
+                    <span>Correo</span>
+                    <a href="mailto:contacto@logisticarhino.com"
+                      >contacto@logisticarhino.com</a
+                    >
+                  </li>
+                  <li>
+                    <span>WhatsApp</span>
+                    <a href="https://wa.me/525500000000">(55) 0000 0000</a>
+                  </li>
+                  <li>
+                    <span>Dirección</span>
+                    <div class="value">
+                      Calle Placeholder 123, Ciudad de México
+                    </div>
+                  </li>
+                </ul>
+
+                <!-- ⚠ PLACEHOLDER: reemplaza por un mapa embebido (Google Maps) con la ubicación real -->
+                <div class="img-ph img-ph--dark ar-map">
+                  <div class="img-ph-inner">
+                    <svg viewBox="0 0 48 36" fill="none" aria-hidden="true">
+                      <path
+                        d="M16 4 L4 8 v24 l12-4 16 4 12-4V4l-12 4-16-4Z"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M16 4v24M32 8v24"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                      />
+                    </svg>
+                    <span class="img-ph-label">Mapa: ubicación de Rhino</span>
+                    <span class="img-ph-meta"
+                      >Inserta aquí un mapa embebido</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="contact-form">
+                <!-- Formulario estático: abre el correo del cliente con los datos capturados.
+                 Para recibir los envíos directamente en un backend, conecta esta acción
+                 a un servicio como Formspree o similar. -->
+                <form
+                  action="mailto:contacto@logisticarhino.com"
+                  method="post"
+                  enctype="text/plain"
+                >
+                  <div class="field">
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" name="Nombre" type="text" required />
+                  </div>
+                  <div class="field">
+                    <label for="correo">Correo</label>
+                    <input id="correo" name="Correo" type="email" required />
+                  </div>
+                  <div class="field">
+                    <label for="mensaje">Cuéntanos sobre tu envío</label>
+                    <textarea
+                      id="mensaje"
+                      name="Mensaje"
+                      placeholder="Origen, destino, tipo de carga y volumen aproximado"
+                      required
+                    ></textarea>
+                  </div>
+                  <button class="btn btn-primary" type="submit">
+                    Enviar solicitud
+                  </button>
+                  <p class="form-note">
+                    Al enviar, se abrirá tu aplicación de correo con el mensaje
+                    listo para confirmar el envío.
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <div class="footer-row">
+          <div class="footer-brand">
+            <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <polygon
+                points="2,30 10,16 15,18 20,10 27,14 25,20 34,17 30,26 20,30 12,34"
+                fill="none"
+                stroke="#E9190F"
+                stroke-width="1.6"
+                stroke-linejoin="round"
+              />
+              <line
+                x1="15"
+                y1="18"
+                x2="20"
+                y2="10"
+                stroke="#E9190F"
+                stroke-width="1.6"
+              />
+            </svg>
+            <span>Logística Rhino</span>
+          </div>
+          <nav aria-label="Navegación de pie de página">
+            <a href="#servicios">Servicios</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#faq">Preguntas frecuentes</a>
+            <a href="#contacto">Contacto</a>
+          </nav>
+        </div>
+        <p class="footer-fine">
+          © 2026 Logística Rhino. Todos los derechos reservados.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
